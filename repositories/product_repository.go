@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"strconv"
 
-	"../common"
-	"../datamodels"
+	"github.com/Zawa-ll/rushbuy/common"
+	"github.com/Zawa-ll/rushbuy/datamodels"
 )
 
 // First step, develop the corresponding interface first

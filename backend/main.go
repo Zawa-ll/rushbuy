@@ -3,13 +3,13 @@ package main
 import (
 	"context"
 
-	"../backend/web/controllers"
-	"../common"
-	"../repositories"
-	"../services"
+	"github.com/Zawa-ll/rushbuy/backend/web/controllers"
+	"github.com/Zawa-ll/rushbuy/common"
+	"github.com/Zawa-ll/rushbuy/repositories"
+	"github.com/Zawa-ll/rushbuy/services"
 
-	"github.com/kataras/iris"
-	"github.com/kataras/iris/mvc"
+	"github.com/kataras/iris/v12"
+	"github.com/kataras/iris/v12/mvc"
 	"github.com/opentracing/opentracing-go/log"
 )
 
@@ -19,10 +19,11 @@ func main() {
 	tmplate := iris.HTML(". /backend/web/views", ".html").Layout("shared/layout.html").Reload(true)
 	app.RegisterView(tmplate)
 
-	app.StaticWeb("/assets", ". /backend/web/assets")
+	// app.StaticWeb("/assets", ". /backend/web/assets")
+	app.HandleDir("/assets", "./backend/web/assets")
 	// Exception jump to the specified page
 	app.OnAnyErrorCode(func(ctx iris.Context) {
-		ctx.ViewData("message", ctx.Values().GetStringDefault("message", "访问的页面出错！"))
+		ctx.ViewData("message", ctx.Values().GetStringDefault("message", "Error on the visited page!"))
 		ctx.ViewLayout("")
 		ctx.View("shared/error.html")
 	})
@@ -45,7 +46,7 @@ func main() {
 	// 6. Starting services
 	app.Run(
 		iris.Addr("localhost:8080"),
-		iris.WithoutVersionChecker,
+		// iris.WithoutVersionChecker,
 		iris.WithoutServerError(iris.ErrServerClosed),
 		iris.WithOptimizations,
 	)

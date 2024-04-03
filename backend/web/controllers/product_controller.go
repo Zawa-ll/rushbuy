@@ -3,8 +3,11 @@ package controllers
 import (
 	"strconv"
 
-	"github.com/kataras/iris"
-	"github.com/kataras/iris/mvc"
+	"github.com/Zawa-ll/rushbuy/common"
+	"github.com/Zawa-ll/rushbuy/datamodels"
+	"github.com/Zawa-ll/rushbuy/services"
+	"github.com/kataras/iris/v12"
+	"github.com/kataras/iris/v12/mvc"
 )
 
 type ProductController struct {

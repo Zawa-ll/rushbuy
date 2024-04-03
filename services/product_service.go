@@ -1,8 +1,8 @@
 package services
 
 import (
-	"../datamodels"
-	"../repositories"
+	"github.com/Zawa-ll/rushbuy/datamodels"
+	"github.com/Zawa-ll/rushbuy/repositories"
 )
 
 type IProductService interface {
