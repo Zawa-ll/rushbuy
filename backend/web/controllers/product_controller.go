@@ -87,9 +87,9 @@ func (p *ProductController) GetDelete() {
 	}
 	isOk := p.ProductService.DeleteProductByID(id)
 	if isOk {
-		p.Ctx.Application().Logger().Debug("删除商品成功，ID为：" + idString)
+		p.Ctx.Application().Logger().Debug("Deletion of the product was successful with the ID:" + idString)
 	} else {
-		p.Ctx.Application().Logger().Debug("删除商品失败，ID为：" + idString)
+		p.Ctx.Application().Logger().Debug("Failed to delete item with ID:" + idString)
 	}
 	p.Ctx.Redirect("/product/all")
 }
