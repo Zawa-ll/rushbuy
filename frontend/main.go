@@ -7,6 +7,7 @@ import (
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/mvc"
 
+	"github.com/Zawa-ll/rushbuy/frontend/middleware"
 	"github.com/Zawa-ll/rushbuy/frontend/web/controllers"
 	"github.com/Zawa-ll/rushbuy/repositories"
 	"github.com/Zawa-ll/rushbuy/services"
@@ -48,6 +49,17 @@ func main() {
 	userPro := mvc.New(app.Party("/user"))
 	userPro.Register(userService, ctx, sess.Start)
 	userPro.Handle(new(controllers.UserController))
+
+	//Register Product Controller
+	product := repositories.NewProductManager("product", db)
+	productService := services.NewProductService(product)
+	order := repositories.NewOrderMangerRepository("order", db)
+	orderService := services.NewOrderService(order)
+	proProduct := app.Party("/product")
+	pro := mvc.New(proProduct)
+	proProduct.Use(middleware.AuthConProduct) // Ensure that only logged in user can commit rush buy
+	pro.Register(productService, orderService)
+	pro.Handle(new(controllers.ProductController))
 
 	app.Run(
 		iris.Addr("0.0.0.0:8082"),
